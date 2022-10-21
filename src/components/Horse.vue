@@ -17,8 +17,7 @@ const startHandler = () => {
 
 
 let horseFunk = function() {
-    marginLeft.value = marginLeft.value + Math.floor((Math.random() * 40)+20);
-    console.log(marginLeft.value);
+    marginLeft.value = marginLeft.value + (Math.floor(Math.random()*(40-20))+20);
     if (marginLeft.value >= (finish.value.offsetLeft - 100)) {
         marginLeft.value = (finish.value.offsetLeft - 100)
         clearInterval(myInterval)
