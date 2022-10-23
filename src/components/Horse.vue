@@ -24,51 +24,74 @@ const startHandler = () => {
     myInterval = setInterval(horseFunk, 1000)
 }
 
-const horseFunk = function () {
-    horse()
-    horse2()
-    horse3()
-}
 const horseOneroad = ref()
 const horseTworoad = ref()
 const horseThreeroad = ref()
 
+
+const horseFunk = function () {
+   // horse(rdn1, finish, marginLeft)
+    myFunk(rdn1,finish,marginLeft, "ahmet", horseOneroad)
+   // horse2()
+    myFunk(rdn2,finish2,marginLeft2,"ali", horseTworoad)
+    horse3()
+}
+
 const myResults = ref([])
 
-function horse() {
-    if (rdn1.value < (finish.value.offsetLeft - 100)) {
-        rdn1.value += (Math.floor(Math.random() * (40 - 20)) + 20) *10
+function myFunk(rdn,fin, margin, name,road){
+    if (rdn.value < (fin.value.offsetLeft - 100)) {
+        rdn.value += (Math.floor(Math.random() * (40 - 20)) + 20) *10
         
-        if (rdn1.value >= (finish.value.offsetLeft - 100)) {
-            rdn1.value = (finish.value.offsetLeft - 100)
+        if (rdn.value >= (fin.value.offsetLeft - 100)) {
+            rdn.value = (fin.value.offsetLeft - 100)
 
-            myResults.value.push("ahmet")
-            console.log("winner1");
-            marginLeft.value = (finish.value.offsetLeft - 100)
+            myResults.value.push(name)
+            console.log(name);
+            margin.value = (fin.value.offsetLeft - 100)
         } else {
-            marginLeft.value = rdn1.value
+            margin.value = rdn1.value
            
-            horseOneroad.value = (finish.value.offsetLeft - 100) - marginLeft.value // KALAN YOL
+            road.value = (fin.value.offsetLeft - 100) - margin.value // KALAN YOL - Bug var burada
 
         }
     }
 }
 
-function horse2() {
-    if (rdn2.value < (finish2.value.offsetLeft - 100)) {
-        rdn2.value += (Math.floor(Math.random() * (40 - 20)) + 20) *10
+// function horse() {
+//     if (rdn1.value < (finish.value.offsetLeft - 100)) {
+//         rdn1.value += (Math.floor(Math.random() * (40 - 20)) + 20) *10
         
-        if (rdn2.value >= (finish2.value.offsetLeft - 100)) {
-            rdn2.value = (finish2.value.offsetLeft - 100)
-            myResults.value.push("ali")
-            console.log("winner2");
-            marginLeft2.value = (finish2.value.offsetLeft - 100)
-        } else {
-            marginLeft2.value = rdn2.value
-            horseTworoad.value = (finish2.value.offsetLeft - 100) - marginLeft2.value
-        }
-    }
-}
+//         if (rdn1.value >= (finish.value.offsetLeft - 100)) {
+//             rdn1.value = (finish.value.offsetLeft - 100)
+
+//             myResults.value.push("ahmet")
+//             console.log("winner1");
+//             marginLeft.value = (finish.value.offsetLeft - 100)
+//         } else {
+//             marginLeft.value = rdn1.value
+           
+//             horseOneroad.value = (finish.value.offsetLeft - 100) - marginLeft.value // KALAN YOL
+
+//         }
+//     }
+// }
+
+// function horse2() {
+//     if (rdn2.value < (finish2.value.offsetLeft - 100)) {
+//         rdn2.value += (Math.floor(Math.random() * (40 - 20)) + 20) *10
+        
+//         if (rdn2.value >= (finish2.value.offsetLeft - 100)) {
+//             rdn2.value = (finish2.value.offsetLeft - 100)
+//             myResults.value.push("ali")
+//             console.log("winner2");
+//             marginLeft2.value = (finish2.value.offsetLeft - 100)
+//         } else {
+//             marginLeft2.value = rdn2.value
+//             horseTworoad.value = (finish2.value.offsetLeft - 100) - marginLeft2.value
+//         }
+//     }
+// }
 function horse3() {
     if (rdn3.value < (finish3.value.offsetLeft - 100)) {
         rdn3.value += (Math.floor(Math.random() * (40 - 20)) + 20) *10
