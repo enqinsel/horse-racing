@@ -16,15 +16,17 @@ const rdn3 = ref(0);
 
 const show = ref(false);
 
-let myInterval
+let myInterval;
+let count;
 
 function startHandler() {
- myInterval = setInterval(horseFunk, 1000);
- return myInterval;
+  showSecond.value = true
+  myInterval = setInterval(horseFunk, 1000);
+  count = setInterval(countDown,1000);
 }
 
 function restartHandler() {
-    location.reload(true)
+  location.reload(true);
 }
 
 const horseOneroad = ref();
@@ -41,14 +43,15 @@ const myResults = ref([]);
 
 function myFunk(rdn, fin, margin, name, road) {
   if (rdn.value < fin.value.offsetLeft - 120) {
-    rdn.value += Math.floor(Math.random() * 100 + 10);
+    rdn.value += Math.floor(Math.random() * 100 + 20);
 
     if (rdn.value >= fin.value.offsetLeft - 120) {
       rdn.value = fin.value.offsetLeft - 120;
       myResults.value.push(name);
       setTimeout(function isShow() {
         show.value = true;
-      }, 5000);
+        showSecond.value = false
+      }, 3000);
       margin.value = fin.value.offsetLeft - 120;
     } else {
       margin.value = rdn.value;
@@ -57,6 +60,20 @@ function myFunk(rdn, fin, margin, name, road) {
     }
   }
 }
+
+const second = ref(25)
+const showSecond = ref(false)
+
+function countDown()
+{
+	if(second.value == 0){
+        clearInterval(count)
+	}
+    else{
+        setTimeout(()=>second.value --, 1000)
+    }
+}
+
 </script>
 
 <template>
@@ -95,6 +112,9 @@ function myFunk(rdn, fin, margin, name, road) {
       </div>
       <button @click="restartHandler">Yeniden Başlat</button>
     </div>
+  </div>
+  <div v-if="showSecond">
+    <p>{{ second }}</p>
   </div>
   <button @click="startHandler">Start</button>
 </template>
