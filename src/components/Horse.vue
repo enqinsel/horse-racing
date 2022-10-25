@@ -40,23 +40,29 @@ const horseFunk = function () {
 };
 
 const myResults = ref([]);
+const resultCount = ref(0)
 
 function myFunk(rdn, fin, margin, name, road) {
-  if (rdn.value < fin.value.offsetLeft - 120) {
+  if (rdn.value < fin.value.offsetLeft - 110) {
     rdn.value += Math.floor(Math.random() * 100 + 20);
 
-    if (rdn.value >= fin.value.offsetLeft - 120) {
-      rdn.value = fin.value.offsetLeft - 120;
+    if (rdn.value >= fin.value.offsetLeft - 110) {
+      rdn.value = fin.value.offsetLeft - 110;
       myResults.value.push(name);
-      setTimeout(function isShow() {
-        show.value = true;
-        showSecond.value = false
-      }, 3000);
-      margin.value = fin.value.offsetLeft - 120;
+    
+      resultCount.value ++
+      console.log(testCount.value);
+      if(resultCount.value == 3){
+        setTimeout(function isShow() {
+              show.value = true;
+              showSecond.value = false
+            }, 2000);
+      }
+      margin.value = fin.value.offsetLeft - 110;
     } else {
       margin.value = rdn.value;
 
-      road.value = fin.value.offsetLeft - 120 - margin.value;
+      road.value = fin.value.offsetLeft - 110 - margin.value;
     }
   }
 }
