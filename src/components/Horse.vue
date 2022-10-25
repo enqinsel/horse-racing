@@ -39,12 +39,15 @@ const show = ref(false);
 let myInterval;
 let count;
 
-const showRoad = ref(false)
+const showRoad = ref(false);
+const showStart = ref(true);
+
 function startHandler() {
   showSecond.value = true;
   myInterval = setInterval(horseFunk, 1000);
   count = setInterval(countDown, 1000);
-  showRoad.value = true
+  showRoad.value = true;
+  showStart.value = false;
 }
 
 function restartHandler() {
@@ -86,6 +89,7 @@ function myFunk(rdn, fin, margin, name, road) {
         setTimeout(function isShow() {
           show.value = true;
           showSecond.value = false;
+          showRoad.value = false;
         }, 2000);
       }
       margin.value = fin.value.offsetLeft - 50;
@@ -113,52 +117,58 @@ function countDown() {
   <div class="body">
     <div class="container">
       <div ref="finish" class="final"></div>
-      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft}px`" />
+      <p class="lane">1</p>
+      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft}px`" style="filter:saturate(2)"/>
       <hr />
     </div>
     <div class="container">
       <div ref="finish2" class="final"></div>
-      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft2}px`" />
+      <p class="lane">2</p>
+      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft2}px`" style="filter:sepia(5)"/>
       <hr />
     </div>
     <div class="container">
       <div ref="finish3" class="final"></div>
-      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft3}px`" />
+      <p class="lane">3</p>
+      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft3}px`" style="filter:hue-rotate(30deg)"/>
       <hr />
     </div>
     <div class="container">
       <div ref="finish4" class="final"></div>
-      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft4}px`" />
+      <p class="lane">4</p>
+      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft4}px`" style="filter:brightness(0.7)" />
       <hr />
     </div>
     <div class="container">
       <div ref="finish5" class="final"></div>
+      <p class="lane">5</p>
       <img src="../../public/horse.gif" :style="`margin-left:${marginLeft5}px`" />
       <hr />
     </div>
     <div class="container">
       <div ref="finish6" class="final"></div>
-      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft6}px`" />
+      <p class="lane">6</p>
+      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft6}px`" style="filter:contrast(200%)" />
       <hr />
     </div>
     <div class="container">
       <div ref="finish7" class="final"></div>
-      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft7}px`" />
+      <p class="lane">7</p>
+      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft7}px`" style="filter:brightness(0.5)"/>
       <hr />
     </div>
     <div class="bottom-container">
       <div ref="finish8" class="final"></div>
-      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft8}px`" />
+      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft8}px`" style="filter:brightness(1.5)"/>
+      <p class="lane">8</p>
     </div>
     <hr class="barrier" />
     <div v-if="showRoad" class="road">
-      
-        ahmet: {{ horseOneroad }} <br>
-        ali: {{ horseTworoad }} <br>
-        engin: {{ horseThreeroad }} <br>
-      
+      ahmet: {{ horseOneroad }} <br />
+      ali: {{ horseTworoad }} <br />
+      engin: {{ horseThreeroad }} <br />
     </div>
-    <button @click="startHandler">Start</button>
+
     <div v-if="show" class="result">
       <div class="mask"></div>
       <div class="card">
@@ -178,30 +188,69 @@ function countDown() {
         <button class="restartButton" @click="restartHandler">Yeniden Başlat</button>
       </div>
     </div>
-    <div v-if="showSecond">
+    <div class="second" v-if="showSecond">
       <p>{{ second }}</p>
     </div>
   </div>
+  <button v-if="showStart" class="startButton" @click="startHandler">Start</button>
 </template>
 
 <style scoped>
 
-.road{
+.lane{
+  display: inline;
+  font-size: 50px;
+  position: fixed;
+  left: 50px;
+  color: #fbe200a3;
+}
+.second{
+  background-color: rgb(0, 0, 0);
+  width: 150px;
+  height: 75px;
+  font-size: 70px;
+  border: 3px solid rgb(102, 101, 101);
+  color: red;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  position: fixed;
+  border-radius: 10px;
+  right: 250px;
+  bottom: 30px;
+}
+.startButton {
+  width: 250px;
+  height: 80px;
+  font-size: 36px;
+  margin-left: 40%;
+  margin-top: 15px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(86, 223, 13);
+  color: white;
+}
+
+.startButton:hover {
+  transform: scale(1.2);
+  transition: all 0.3s ease;
+}
+.road {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   background: rgb(237, 252, 196);
-  background: linear-gradient(0deg, #bd9c76 0%, #e08a26 100%);
+  background: linear-gradient(0deg, #c56b05 0%, #e08a26 100%);
   border: 1px solid red;
   text-align: center;
-  padding: 15px;
+  padding: 10px;
   width: 300px;
   margin-left: 50%;
   margin-top: 50px;
   transform: translate(-50%, -50%);
-
 }
 
-.restartButton{
+.restartButton {
   padding: 10px;
   width: 150px;
   margin-left: auto;
@@ -212,7 +261,7 @@ function countDown() {
   color: white;
   cursor: pointer;
 }
-.rankColor{
+.rankColor {
   color: rgb(246, 255, 0);
 }
 .label__line {
@@ -234,16 +283,17 @@ img {
   position: relative;
   float: right;
   background-color: rgb(255, 0, 0);
+  box-shadow: 0px -10px 0px 0px #ff0000;
 }
 
 .container {
   background-color: green;
-  box-shadow: 0px 10px 0px 20px #754545;
+  box-shadow: 0px 10px 0px 20px #8B4513;
 }
 
 .bottom-container {
   background-color: green;
-  box-shadow: 0px -10px 0px 0px #754545;
+  box-shadow: 0px -10px 0px 0px #8B4513;
 }
 
 .mask {
@@ -258,8 +308,7 @@ img {
 .card {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  background: rgb(237, 252, 196);
-  background: linear-gradient(0deg, #bd9c76 0%, #e08a26 100%);
+  background-color: #e19135;
   border: 1px solid red;
   text-align: center;
   padding: 15px;
@@ -284,12 +333,12 @@ li {
 
 .barrier {
   font-size: 0.3em;
-  background: linear-gradient(315deg, rgb(255, 0, 0) 25%, transparent 25%) -3em 0,
-    linear-gradient(45deg, rgb(255, 0, 0) 25%, transparent 25%) -3em 0,
+  background: linear-gradient(315deg, #333 25%, transparent 25%) -3em 0,
+    linear-gradient(45deg, #333 25%, transparent 25%) -3em 0,
     linear-gradient(135deg, #333 25%, transparent 25%),
     linear-gradient(225deg, #333 25%, transparent 25%);
   background-size: 7em 100%;
-  background-color: #754545;
+  background-color: #6c3711;
   height: 7em;
   border: none;
   margin: 0;
