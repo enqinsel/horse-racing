@@ -39,10 +39,12 @@ const show = ref(false);
 let myInterval;
 let count;
 
+const showRoad = ref(false)
 function startHandler() {
   showSecond.value = true;
   myInterval = setInterval(horseFunk, 1000);
   count = setInterval(countDown, 1000);
+  showRoad.value = true
 }
 
 function restartHandler() {
@@ -149,35 +151,77 @@ function countDown() {
       <img src="../../public/horse.gif" :style="`margin-left:${marginLeft8}px`" />
     </div>
     <hr class="barrier" />
-    <div>
-      <ul>
-        <li>ahmet: {{ horseOneroad }}</li>
-        <li>ali: {{ horseTworoad }}</li>
-        <li>engin: {{ horseThreeroad }}</li>
-      </ul>
+    <div v-if="showRoad" class="road">
+      
+        ahmet: {{ horseOneroad }} <br>
+        ali: {{ horseTworoad }} <br>
+        engin: {{ horseThreeroad }} <br>
+      
     </div>
+    <button @click="startHandler">Start</button>
     <div v-if="show" class="result">
       <div class="mask"></div>
       <div class="card">
         <div class="card__label">
           <h1>Sonuçlar</h1>
+          <div class="label__line"></div>
         </div>
         <div class="card__wrapper">
+          <ul>
+            <li class="rankColor" v-for="i in 3">{{ i }}</li>
+            <li v-for="i in 5">{{ i + 3 }}</li>
+          </ul>
           <ul>
             <li v-for="myResult in myResults">{{ myResult }}</li>
           </ul>
         </div>
-        <button @click="restartHandler">Yeniden Başlat</button>
+        <button class="restartButton" @click="restartHandler">Yeniden Başlat</button>
       </div>
     </div>
     <div v-if="showSecond">
       <p>{{ second }}</p>
     </div>
-    <button @click="startHandler">Start</button>
   </div>
 </template>
 
 <style scoped>
+
+.road{
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  background: rgb(237, 252, 196);
+  background: linear-gradient(0deg, #bd9c76 0%, #e08a26 100%);
+  border: 1px solid red;
+  text-align: center;
+  padding: 15px;
+  width: 300px;
+  margin-left: 50%;
+  margin-top: 50px;
+  transform: translate(-50%, -50%);
+
+}
+
+.restartButton{
+  padding: 10px;
+  width: 150px;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(86, 223, 13);
+  color: white;
+  cursor: pointer;
+}
+.rankColor{
+  color: rgb(246, 255, 0);
+}
+.label__line {
+  width: 100%;
+  height: 2px;
+  background-color: rgb(0, 0, 0);
+  margin: 5px;
+}
+
 img {
   width: 50px;
   height: 50px;
@@ -215,19 +259,27 @@ img {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   background: rgb(237, 252, 196);
-  background: linear-gradient(
-    0deg,
-    rgba(237, 252, 196, 1) 0%,
-    rgba(253, 187, 45, 1) 100%
-  );
+  background: linear-gradient(0deg, #bd9c76 0%, #e08a26 100%);
   border: 1px solid red;
   text-align: center;
-  padding: 5px;
+  padding: 15px;
   width: 300px;
   position: fixed;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+
+.card__wrapper {
+  padding: 10px;
+  width: auto;
+  display: grid;
+  grid-template-columns: repeat(2, 2fr);
+}
+
+li {
+  padding: 10px;
+  border-bottom: 1px solid rgb(0, 0, 0);
 }
 
 .barrier {
