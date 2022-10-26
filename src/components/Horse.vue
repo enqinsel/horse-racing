@@ -85,19 +85,18 @@ function myFunk(rdn, fin, margin, name, road) {
       rdn.value = fin.value.offsetLeft - 50;
       myResults.value.push(name);
       resultCount.value++;
-      if (resultCount.value == 8) {
+      if (resultCount.value === 8) {
         setTimeout(function isShow() {
           show.value = true;
           showSecond.value = false;
-          showRoad.value = false;
+          // showRoad.value = false;
         }, 2000);
       }
       margin.value = fin.value.offsetLeft - 50;
     } else {
       margin.value = rdn.value;
-
-      road.value = fin.value.offsetLeft - 50 - margin.value;
     }
+    road.value = fin.value.offsetLeft - 50 - margin.value;
   }
 }
 
@@ -118,25 +117,41 @@ function countDown() {
     <div class="container">
       <div ref="finish" class="final"></div>
       <p class="lane">1</p>
-      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft}px`" style="filter:saturate(2)"/>
+      <img
+        src="../../public/horse.gif"
+        :style="`margin-left:${marginLeft}px`"
+        style="filter: saturate(2)"
+      />
       <hr />
     </div>
     <div class="container">
       <div ref="finish2" class="final"></div>
       <p class="lane">2</p>
-      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft2}px`" style="filter:sepia(5)"/>
+      <img
+        src="../../public/horse.gif"
+        :style="`margin-left:${marginLeft2}px`"
+        style="filter: sepia(5)"
+      />
       <hr />
     </div>
     <div class="container">
       <div ref="finish3" class="final"></div>
       <p class="lane">3</p>
-      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft3}px`" style="filter:hue-rotate(30deg)"/>
+      <img
+        src="../../public/horse.gif"
+        :style="`margin-left:${marginLeft3}px`"
+        style="filter: hue-rotate(30deg)"
+      />
       <hr />
     </div>
     <div class="container">
       <div ref="finish4" class="final"></div>
       <p class="lane">4</p>
-      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft4}px`" style="filter:brightness(0.7)" />
+      <img
+        src="../../public/horse.gif"
+        :style="`margin-left:${marginLeft4}px`"
+        style="filter: brightness(0.7)"
+      />
       <hr />
     </div>
     <div class="container">
@@ -148,27 +163,43 @@ function countDown() {
     <div class="container">
       <div ref="finish6" class="final"></div>
       <p class="lane">6</p>
-      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft6}px`" style="filter:contrast(200%)" />
+      <img
+        src="../../public/horse.gif"
+        :style="`margin-left:${marginLeft6}px`"
+        style="filter: contrast(200%)"
+      />
       <hr />
     </div>
     <div class="container">
       <div ref="finish7" class="final"></div>
       <p class="lane">7</p>
-      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft7}px`" style="filter:brightness(0.5)"/>
+      <img
+        src="../../public/horse.gif"
+        :style="`margin-left:${marginLeft7}px`"
+        style="filter: brightness(0.5)"
+      />
       <hr />
     </div>
     <div class="bottom-container">
       <div ref="finish8" class="final"></div>
-      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft8}px`" style="filter:brightness(1.5)"/>
+      <img
+        src="../../public/horse.gif"
+        :style="`margin-left:${marginLeft8}px`"
+        style="filter: brightness(1.5)"
+      />
       <p class="lane">8</p>
     </div>
     <hr class="barrier" />
     <div v-if="showRoad" class="road">
-      ahmet: {{ horseOneroad }} <br />
-      ali: {{ horseTworoad }} <br />
-      engin: {{ horseThreeroad }} <br />
+      ahmet: {{ horseOneroad }} 
+      ali: {{ horseTworoad }} 
+      engin: {{ horseThreeroad }} 
+      tarık: {{ horseFourroad }} 
+      selim: {{ horseFiveroad }} 
+      mehmet: {{ horseSixroad }} 
+      arif: {{ horseSevenroad }} 
+      ege: {{ horseEightroad }} 
     </div>
-
     <div v-if="show" class="result">
       <div class="mask"></div>
       <div class="card">
@@ -196,15 +227,14 @@ function countDown() {
 </template>
 
 <style scoped>
-
-.lane{
+.lane {
   display: inline;
   font-size: 50px;
   position: fixed;
   left: 50px;
   color: #fbe200a3;
 }
-.second{
+.second {
   background-color: rgb(0, 0, 0);
   width: 150px;
   height: 75px;
@@ -216,8 +246,8 @@ function countDown() {
   justify-content: space-around;
   position: fixed;
   border-radius: 10px;
-  right: 250px;
-  bottom: 30px;
+  right: 50px;
+  bottom: 35px;
 }
 .startButton {
   width: 250px;
@@ -237,14 +267,14 @@ function countDown() {
   transition: all 0.3s ease;
 }
 .road {
-  display: grid;
+  display:grid;
   grid-template-columns: repeat(1, 1fr);
   background: rgb(237, 252, 196);
   background: linear-gradient(0deg, #c56b05 0%, #e08a26 100%);
   border: 1px solid red;
   text-align: center;
   padding: 10px;
-  width: 300px;
+  width: auto;
   margin-left: 50%;
   margin-top: 50px;
   transform: translate(-50%, -50%);
@@ -288,12 +318,12 @@ img {
 
 .container {
   background-color: green;
-  box-shadow: 0px 10px 0px 20px #8B4513;
+  box-shadow: 0px 10px 0px 20px #8b4513;
 }
 
 .bottom-container {
   background-color: green;
-  box-shadow: 0px -10px 0px 0px #8B4513;
+  box-shadow: 0px -10px 0px 0px #8b4513;
 }
 
 .mask {
