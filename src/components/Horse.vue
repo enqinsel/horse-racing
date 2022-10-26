@@ -54,6 +54,8 @@ function restartHandler() {
   location.reload(true);
 }
 
+
+
 const horseOneroad = ref();
 const horseTworoad = ref();
 const horseThreeroad = ref();
@@ -63,9 +65,12 @@ const horseSixroad = ref();
 const horseSevenroad = ref();
 const horseEightroad = ref();
 
+const array = ref([horseOneroad,horseTworoad])
+const test = ref(array.value.sort())
+
 const horseFunk = function () {
-  myFunk(rdn1, finish, marginLeft, "ahmet", horseOneroad);
-  myFunk(rdn2, finish2, marginLeft2, "ali", horseTworoad);
+  myFunk(rdn1, finish, marginLeft, "ahmet", array.value[0]);
+  myFunk(rdn2, finish2, marginLeft2, "ali", array.value[1]);
   myFunk(rdn3, finish3, marginLeft3, "engin", horseThreeroad);
   myFunk(rdn4, finish4, marginLeft4, "tarik", horseFourroad);
   myFunk(rdn5, finish5, marginLeft5, "selim", horseFiveroad);
@@ -89,7 +94,7 @@ function myFunk(rdn, fin, margin, name, road) {
         setTimeout(function isShow() {
           show.value = true;
           showSecond.value = false;
-          // showRoad.value = false;
+          showRoad.value = false;
         }, 2000);
       }
       margin.value = fin.value.offsetLeft - 50;
@@ -190,6 +195,7 @@ function countDown() {
       <p class="lane">8</p>
     </div>
     <hr class="barrier" />
+    <img class="finishFlag" src="../../public/finish.svg">
     <div v-if="showRoad" class="road">
       ahmet: {{ horseOneroad }} 
       ali: {{ horseTworoad }} 
@@ -199,6 +205,8 @@ function countDown() {
       mehmet: {{ horseSixroad }} 
       arif: {{ horseSevenroad }} 
       ege: {{ horseEightroad }} 
+      <hr>
+      ahmet {{test[0]}} ali {{test[1]}}
     </div>
     <div v-if="show" class="result">
       <div class="mask"></div>
@@ -227,6 +235,15 @@ function countDown() {
 </template>
 
 <style scoped>
+
+.finishFlag{
+  width:50px;
+  height:545px;
+  position:fixed; 
+  top:0px;
+  right: 10px;
+  opacity: 0.7;
+}
 .lane {
   display: inline;
   font-size: 50px;
