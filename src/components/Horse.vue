@@ -48,13 +48,12 @@ function startHandler() {
   count = setInterval(countDown, 1000);
   showRoad.value = true;
   showStart.value = false;
+  //setInterval(()=>console.log(test),1000)
 }
 
 function restartHandler() {
   location.reload(true);
 }
-
-
 
 const horseOneroad = ref();
 const horseTworoad = ref();
@@ -65,18 +64,27 @@ const horseSixroad = ref();
 const horseSevenroad = ref();
 const horseEightroad = ref();
 
-const array = ref([horseOneroad,horseTworoad])
-const test = ref(array.value.sort())
+const array = ref([
+  horseOneroad,
+  horseTworoad,
+  horseThreeroad,
+  horseFourroad,
+  horseFiveroad,
+  horseSixroad,
+  horseSevenroad,
+  horseEightroad,
+]);
+const test = array.value.sort(); // setInterval
 
 const horseFunk = function () {
-  myFunk(rdn1, finish, marginLeft, "ahmet", array.value[0]);
-  myFunk(rdn2, finish2, marginLeft2, "ali", array.value[1]);
-  myFunk(rdn3, finish3, marginLeft3, "engin", horseThreeroad);
-  myFunk(rdn4, finish4, marginLeft4, "tarik", horseFourroad);
-  myFunk(rdn5, finish5, marginLeft5, "selim", horseFiveroad);
-  myFunk(rdn6, finish6, marginLeft6, "mehmet", horseSixroad);
-  myFunk(rdn7, finish7, marginLeft7, "arif", horseSevenroad);
-  myFunk(rdn8, finish8, marginLeft8, "ege", horseEightroad);
+  myFunk(rdn1, finish, marginLeft, "Ayabakan", array.value[0]);
+  myFunk(rdn2, finish2, marginLeft2, "Yavuzhan", array.value[1]);
+  myFunk(rdn3, finish3, marginLeft3, "Karayel", array.value[2]);
+  myFunk(rdn4, finish4, marginLeft4, "Sarıyerli", array.value[3]);
+  myFunk(rdn5, finish5, marginLeft5, "Şahbatur", array.value[4]);
+  myFunk(rdn6, finish6, marginLeft6, "Tunca", array.value[5]);
+  myFunk(rdn7, finish7, marginLeft7, "Toraman", array.value[6]);
+  myFunk(rdn8, finish8, marginLeft8, "Bold pilot", array.value[7]);
 };
 
 const myResults = ref([]);
@@ -85,7 +93,6 @@ const resultCount = ref(0);
 function myFunk(rdn, fin, margin, name, road) {
   if (rdn.value < fin.value.offsetLeft - 50) {
     rdn.value += Math.floor(Math.random() * 100 + 20);
-
     if (rdn.value >= fin.value.offsetLeft - 50) {
       rdn.value = fin.value.offsetLeft - 50;
       myResults.value.push(name);
@@ -121,7 +128,8 @@ function countDown() {
   <div class="body">
     <div class="container">
       <div ref="finish" class="final"></div>
-      <p class="lane">1</p>
+      <img class="finishFlag" src="../../public/finish.svg" />
+      <p class="lane">1 <span>Ayabakan</span></p>
       <img
         src="../../public/horse.gif"
         :style="`margin-left:${marginLeft}px`"
@@ -131,7 +139,7 @@ function countDown() {
     </div>
     <div class="container">
       <div ref="finish2" class="final"></div>
-      <p class="lane">2</p>
+      <p class="lane">2 <span>Yavuzhan</span></p>
       <img
         src="../../public/horse.gif"
         :style="`margin-left:${marginLeft2}px`"
@@ -141,7 +149,7 @@ function countDown() {
     </div>
     <div class="container">
       <div ref="finish3" class="final"></div>
-      <p class="lane">3</p>
+      <p class="lane">3 <span>Karayel</span></p>
       <img
         src="../../public/horse.gif"
         :style="`margin-left:${marginLeft3}px`"
@@ -151,7 +159,7 @@ function countDown() {
     </div>
     <div class="container">
       <div ref="finish4" class="final"></div>
-      <p class="lane">4</p>
+      <p class="lane">4 <span>Sarıyerli</span></p>
       <img
         src="../../public/horse.gif"
         :style="`margin-left:${marginLeft4}px`"
@@ -161,13 +169,17 @@ function countDown() {
     </div>
     <div class="container">
       <div ref="finish5" class="final"></div>
-      <p class="lane">5</p>
-      <img src="../../public/horse.gif" :style="`margin-left:${marginLeft5}px`" />
+      <p class="lane">5 <span>Şahbatur</span></p>
+      <img
+        src="../../public/horse.gif"
+        :style="`margin-left:${marginLeft5}px`"
+        style="filter: contrast(100%)"
+      />
       <hr />
     </div>
     <div class="container">
       <div ref="finish6" class="final"></div>
-      <p class="lane">6</p>
+      <p class="lane">6 <span>Tunca</span></p>
       <img
         src="../../public/horse.gif"
         :style="`margin-left:${marginLeft6}px`"
@@ -177,7 +189,7 @@ function countDown() {
     </div>
     <div class="container">
       <div ref="finish7" class="final"></div>
-      <p class="lane">7</p>
+      <p class="lane">7 <span>Toraman</span></p>
       <img
         src="../../public/horse.gif"
         :style="`margin-left:${marginLeft7}px`"
@@ -187,26 +199,27 @@ function countDown() {
     </div>
     <div class="bottom-container">
       <div ref="finish8" class="final"></div>
+      <p class="lane">8 <span>Bold Pilot</span></p>
       <img
         src="../../public/horse.gif"
         :style="`margin-left:${marginLeft8}px`"
         style="filter: brightness(1.5)"
       />
-      <p class="lane">8</p>
     </div>
     <hr class="barrier" />
-    <img class="finishFlag" src="../../public/finish.svg">
+
     <div v-if="showRoad" class="road">
-      ahmet: {{ horseOneroad }} 
-      ali: {{ horseTworoad }} 
-      engin: {{ horseThreeroad }} 
-      tarık: {{ horseFourroad }} 
-      selim: {{ horseFiveroad }} 
-      mehmet: {{ horseSixroad }} 
-      arif: {{ horseSevenroad }} 
-      ege: {{ horseEightroad }} 
-      <hr>
-      ahmet {{test[0]}} ali {{test[1]}}
+      <!-- Ayabakan: {{ horseOneroad }} 
+      Yavuzhan: {{ horseTworoad }} 
+      Karayel: {{ horseThreeroad }} 
+      Sarıyerli: {{ horseFourroad }} 
+      Şahbatur: {{ horseFiveroad }} 
+      Tunca: {{ horseSixroad }} 
+      Toraman: {{ horseSevenroad }} 
+      Bold Pilot: {{ horseEightroad }}  -->
+      Ayabakan: {{ test[0] }} Yavuzhan: {{ test[1] }} Karayel: {{ test[2] }} Sarıyerli:
+      {{ test[3] }} Şahbatur: {{ test[4] }} Tunca:{{ test[5] }} Toraman:
+      {{ test[6] }} Bold Pilot: {{ test[7] }}
     </div>
     <div v-if="show" class="result">
       <div class="mask"></div>
@@ -235,12 +248,15 @@ function countDown() {
 </template>
 
 <style scoped>
-
-.finishFlag{
-  width:50px;
-  height:545px;
-  position:fixed; 
-  top:0px;
+span {
+  font-size: 18px;
+  opacity: 0.8;
+}
+.finishFlag {
+  width: 50px;
+  height: 545px;
+  position: fixed;
+  top: 0px;
   right: 10px;
   opacity: 0.7;
 }
@@ -284,14 +300,14 @@ function countDown() {
   transition: all 0.3s ease;
 }
 .road {
-  display:grid;
+  display: grid;
   grid-template-columns: repeat(1, 1fr);
   background: rgb(237, 252, 196);
   background: linear-gradient(0deg, #c56b05 0%, #e08a26 100%);
   border: 1px solid red;
   text-align: center;
   padding: 10px;
-  width: auto;
+  width: 900px;
   margin-left: 50%;
   margin-top: 50px;
   transform: translate(-50%, -50%);
