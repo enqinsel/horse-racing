@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from "vue";
+import { ref, computed } from "vue";
 
 const marginLeft = ref(0);
 const finish = ref(null);
@@ -25,14 +25,14 @@ const finish7 = ref(null);
 const marginLeft8 = ref(0);
 const finish8 = ref(null);
 
-const rdn1 = ref(0);
-const rdn2 = ref(0);
-const rdn3 = ref(0);
-const rdn4 = ref(0);
-const rdn5 = ref(0);
-const rdn6 = ref(0);
-const rdn7 = ref(0);
-const rdn8 = ref(0);
+const rdn1 = ref(null);
+const rdn2 = ref(null);
+const rdn3 = ref(null);
+const rdn4 = ref(null);
+const rdn5 = ref(null);
+const rdn6 = ref(null);
+const rdn7 = ref(null);
+const rdn8 = ref(null);
 
 const show = ref(false);
 
@@ -48,60 +48,93 @@ function startHandler() {
   count = setInterval(countDown, 1000);
   showRoad.value = true;
   showStart.value = false;
-  //setInterval(()=>console.log(test),1000)
+  
 }
 
 function restartHandler() {
   location.reload(true);
 }
 
-const horseOneroad = ref();
-const horseTworoad = ref();
-const horseThreeroad = ref();
-const horseFourroad = ref();
-const horseFiveroad = ref();
-const horseSixroad = ref();
-const horseSevenroad = ref();
-const horseEightroad = ref();
+const horseOneroad = ref(0);
+const horseTworoad = ref(0);
+const horseThreeroad = ref(0);
+const horseFourroad = ref(0);
+const horseFiveroad = ref(0);
+const horseSixroad = ref(0);
+const horseSevenroad = ref(0);
+const horseEightroad = ref(0);
+
+const array2 = ref([
+  horseOneroad,horseTworoad,horseThreeroad,horseFourroad,horseFiveroad,horseSixroad,horseSevenroad,horseEightroad
+])
 
 const array = ref([
-  horseOneroad,
-  horseTworoad,
-  horseThreeroad,
-  horseFourroad,
-  horseFiveroad,
-  horseSixroad,
-  horseSevenroad,
-  horseEightroad,
+  { 
+    name: "Ayabakan",
+    roads: horseOneroad
+  },
+  {
+    name: "Yavuzhan",
+    roads: horseTworoad
+  },
+  {
+    name: "Karayel",
+    roads: horseThreeroad
+  },
+  {
+    name: "Sarıyerli",
+    roads: horseFourroad
+  },
+  {
+    name: "Şahbatur",
+    roads: horseFiveroad
+  },
+  {
+    name: "Tunca",
+    roads: horseSixroad
+  },
+  {
+    name: "Toraman",
+    roads: horseSevenroad
+  },
+  {
+    name: "Bold Pilot",
+    roads: horseEightroad
+  },
 ]);
-const test = array.value.sort(); // setInterval
+
+const test = computed(()=>{
+  let sorting = array.value.sort((a,b) =>  a.roads - b.roads);
+  console.log(array.value[0].roads);
+  return sorting
+}) 
 
 const horseFunk = function () {
-  myFunk(rdn1, finish, marginLeft, "Ayabakan", array.value[0]);
-  myFunk(rdn2, finish2, marginLeft2, "Yavuzhan", array.value[1]);
-  myFunk(rdn3, finish3, marginLeft3, "Karayel", array.value[2]);
-  myFunk(rdn4, finish4, marginLeft4, "Sarıyerli", array.value[3]);
-  myFunk(rdn5, finish5, marginLeft5, "Şahbatur", array.value[4]);
-  myFunk(rdn6, finish6, marginLeft6, "Tunca", array.value[5]);
-  myFunk(rdn7, finish7, marginLeft7, "Toraman", array.value[6]);
-  myFunk(rdn8, finish8, marginLeft8, "Bold pilot", array.value[7]);
+  myFunk(rdn1, finish, marginLeft,  array2.value[0]);
+  myFunk(rdn2, finish2, marginLeft2,  array2.value[1]);
+  myFunk(rdn3, finish3, marginLeft3,  array2.value[2]);
+  myFunk(rdn4, finish4, marginLeft4,  array2.value[3]);
+  myFunk(rdn5, finish5, marginLeft5,  array2.value[4]);
+  myFunk(rdn6, finish6, marginLeft6,  array2.value[5]);
+  myFunk(rdn7, finish7, marginLeft7,  array2.value[6]);
+  myFunk(rdn8, finish8, marginLeft8,  array2.value[7]);
 };
 
 const myResults = ref([]);
 const resultCount = ref(0);
 
-function myFunk(rdn, fin, margin, name, road) {
+function myFunk(rdn, fin, margin, road) {
   if (rdn.value < fin.value.offsetLeft - 50) {
     rdn.value += Math.floor(Math.random() * 100 + 20);
     if (rdn.value >= fin.value.offsetLeft - 50) {
       rdn.value = fin.value.offsetLeft - 50;
-      myResults.value.push(name);
+      myResults.value = array.value
       resultCount.value++;
       if (resultCount.value === 8) {
         setTimeout(function isShow() {
           show.value = true;
           showSecond.value = false;
-          showRoad.value = false;
+          showRoad.value = true;
         }, 2000);
       }
       margin.value = fin.value.offsetLeft - 50;
@@ -112,15 +145,11 @@ function myFunk(rdn, fin, margin, name, road) {
   }
 }
 
-const second = ref(30);
+const second = ref(0);
 const showSecond = ref(false);
 
 function countDown() {
-  if (second.value == 0) {
-    clearInterval(count);
-  } else {
-    setTimeout(() => second.value--, 1000);
-  }
+  setTimeout(() => second.value++, 1000);
 }
 </script>
 
@@ -207,19 +236,8 @@ function countDown() {
       />
     </div>
     <hr class="barrier" />
-
     <div v-if="showRoad" class="road">
-      <!-- Ayabakan: {{ horseOneroad }} 
-      Yavuzhan: {{ horseTworoad }} 
-      Karayel: {{ horseThreeroad }} 
-      Sarıyerli: {{ horseFourroad }} 
-      Şahbatur: {{ horseFiveroad }} 
-      Tunca: {{ horseSixroad }} 
-      Toraman: {{ horseSevenroad }} 
-      Bold Pilot: {{ horseEightroad }}  -->
-      Ayabakan: {{ test[0] }} Yavuzhan: {{ test[1] }} Karayel: {{ test[2] }} Sarıyerli:
-      {{ test[3] }} Şahbatur: {{ test[4] }} Tunca:{{ test[5] }} Toraman:
-      {{ test[6] }} Bold Pilot: {{ test[7] }}
+      <span v-for="item in test">{{item.name}}</span>
     </div>
     <div v-if="show" class="result">
       <div class="mask"></div>
@@ -234,7 +252,7 @@ function countDown() {
             <li v-for="i in 5">{{ i + 3 }}</li>
           </ul>
           <ul>
-            <li v-for="myResult in myResults">{{ myResult }}</li>
+            <li v-for="myResult in myResults">{{ myResult.name }}</li>
           </ul>
         </div>
         <button class="restartButton" @click="restartHandler">Yeniden Başlat</button>
@@ -300,18 +318,20 @@ span {
   transition: all 0.3s ease;
 }
 .road {
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
+  display: flex;
+  justify-content: center;
+  gap: 16px;
   background: rgb(237, 252, 196);
   background: linear-gradient(0deg, #c56b05 0%, #e08a26 100%);
   border: 1px solid red;
   text-align: center;
   padding: 10px;
-  width: 900px;
+  width: auto;
   margin-left: 50%;
   margin-top: 50px;
   transform: translate(-50%, -50%);
 }
+
 
 .restartButton {
   padding: 10px;
