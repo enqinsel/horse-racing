@@ -56,21 +56,24 @@ const showSound = ref(false)
 const myResults = ref([]);
 const resultCount = ref(0);
 const second = ref(0);
+const firstSecond = ref(0);
 
 let myInterval;
 let count;
 let oneCount;
 
-const firstSecond = ref(0);
 
+// oyun ici sayim
 function countDown() {
   setTimeout(() => second.value++, 1000);
 }
 
+// start verildikten sonraki sayim
 function firstCount() {
   firstSecond.value++;
 }
 
+// Baslat butonuna tiklandiktan sonra gerceklesenler
 function startHandler() {
   showCoundDown.value = true;
   oneCount = setInterval(firstCount, 1000);
@@ -86,10 +89,12 @@ function startHandler() {
   }, 3800);
 }
 
+// yeniden baslat butonu, sayfayı yenileyerek her seyi yeniden baslatiyor.
 function restartHandler() {
   location.reload(true);
 }
 
+// atlarimizin kalan yollarini tutan array
 const arrayRoads = ref([
   horseOneroad,
   horseTworoad,
@@ -101,6 +106,7 @@ const arrayRoads = ref([
   horseEightroad,
 ]);
 
+// her atin ismine ve kalan yoluna gore özellestirdim, anlik takip icin kullaniliyor.
 const array = ref([
   {
     name: "Ayabakan",
@@ -136,11 +142,13 @@ const array = ref([
   },
 ]);
 
+// atlarin yol durumunu siraliyor bunu arrayRoads dizimize gore yapiyor.
 const sortArray = computed(() => {
   let sorting = array.value.sort((a, b) => a.roads - b.roads);
   return sorting;
 });
 
+// atlarimizi runHorse fonksiyonumuza gore parametreler ile gonderiyoruz.
 const myHorses = function () {
   runHorse(fastAyabakan, finishAyabakan, marginLeftAyabakan, arrayRoads.value[0]);
   runHorse(fastYavuzhan, finishYavuzhan, marginLeftYavuzhan, arrayRoads.value[1]);
@@ -151,6 +159,8 @@ const myHorses = function () {
   runHorse(fastToraman, finishToraman, marginLeftToraman, arrayRoads.value[6]);
   runHorse(fastBoldpilot, finishBoldpilot, marginLeftBoldpilot, arrayRoads.value[7]);
 };
+
+// atlarin tum aksiyonlarini gerceklestiren fonksiyonumuz
 
 function runHorse(fast, finish, marginLeft, road) {
   if (fast.value < finish.value.offsetLeft - 50) {
@@ -176,7 +186,7 @@ function runHorse(fast, finish, marginLeft, road) {
 </script>
 
 <template>
-  <div class="body">
+  <div class="main">
     <audio v-if="showSound" autoplay>
       <source src="../../public/raceSound.mp3" type="audio/mpeg" />
     </audio>
@@ -273,6 +283,7 @@ function runHorse(fast, finish, marginLeft, road) {
         <span v-for="item in sortArray" style="margin-left: 45px">{{ item.name }}</span>
       </div>
     </div>
+    <Second secondStyle="second" :second="second" v-if="showSecond"></Second>
     <div v-if="showResult" class="result">
       <div class="mask"></div>
       <div class="card">
@@ -296,7 +307,6 @@ function runHorse(fast, finish, marginLeft, road) {
         ></ButtonComp>
       </div>
     </div>
-    <Second secondStyle="second" :second="second" v-if="showSecond"></Second>
     <CountDown v-if="showCoundDown"></CountDown>
   </div>
   <ButtonComp
