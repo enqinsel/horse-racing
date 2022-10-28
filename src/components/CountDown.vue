@@ -1,6 +1,3 @@
-<script setup>
-</script>
-
 <template>
   <div class="mask"></div>
   <div class="circle">
