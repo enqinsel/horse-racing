@@ -2,6 +2,7 @@
 import { ref, computed } from "vue";
 import ButtonComp from "./ButtonComp.vue";
 import Second from "./Second.vue";
+import CountDown from "./CountDown.vue";
 
 const marginLeftAyabakan = ref(0);
 const finishAyabakan = ref(null);
@@ -48,7 +49,8 @@ const horseEightroad = ref(0);
 const showResult = ref(false);
 const showRoad = ref(false);
 const showStart = ref(true);
-const showSecond = ref(false);
+const showSecond = ref(true);
+const showCoundDown = ref(false)
 
 const myResults = ref([]);
 const resultCount = ref(0);
@@ -56,14 +58,31 @@ const second = ref(0);
 
 let myInterval;
 let count;
+let oneCount;
 
+const firstSecond = ref(0)
+
+function countDown() {
+  setTimeout(() => second.value++, 1000);
+}
+
+function firstCount() {
+  firstSecond.value++
+}
 
 function startHandler() {
-  showSecond.value = true;
-  myInterval = setInterval(myHorses, 1000);
-  count = setInterval(countDown, 1000);
-  showRoad.value = true;
-  showStart.value = false;
+  showCoundDown.value = true
+  oneCount = setInterval(firstCount, 1000) 
+  setTimeout(() => {
+    clearInterval(oneCount)
+    showCoundDown.value = false
+    second.value = 0
+    showSecond.value = true;
+    myInterval = setInterval(myHorses, 1000);
+    count = setInterval(countDown, 1000);
+    showRoad.value = true;
+    showStart.value = false;
+  },3800)
 }
 
 function restartHandler() {
@@ -148,9 +167,6 @@ function runHorse(fast, finish, marginLeft, road) {
   }
 }
 
-function countDown() {
-  setTimeout(() => second.value++, 1000);
-}
 </script>
 
 <template>
@@ -234,6 +250,7 @@ function countDown() {
       </div>
     </div>
     <Second secondStyle="second" :second="second" v-if="showSecond"></Second>
+    <CountDown v-if="showCoundDown"></CountDown>
   </div>
   <ButtonComp name="Başlat" buttonStyle="startButton" @start="startHandler" v-if="showStart"></ButtonComp>
 </template>
@@ -270,21 +287,6 @@ span {
   left: 50px;
   color: #fbe200a3;
 }
-/* .second {
-  background-color: rgb(0, 0, 0);
-  width: 150px;
-  height: 75px;
-  font-size: 70px;
-  border: 3px solid rgb(102, 101, 101);
-  color: red;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  position: fixed;
-  border-radius: 10px;
-  right: 100px;
-  bottom: 35px;
-} */
 
 .road {
   background: rgb(237, 252, 196);
@@ -296,7 +298,6 @@ span {
   margin-top: 50px;
   transform: translate(-50%, -50%);
 }
-
 
 .rankColor {
   color: rgb(246, 255, 0);
