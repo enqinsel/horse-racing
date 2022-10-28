@@ -16,4 +16,3 @@ const clickHandler = () => {
   <Intro v-if="showIntro" @clickButton="clickHandler"></Intro>
   <Racing v-if="showRacing"></Racing>
 </template>
-

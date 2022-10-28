@@ -45,8 +45,8 @@ p {
 }
 
 @keyframes blinker {
-    50% {
-        opacity: 0.5;
-    }
+  50% {
+    opacity: 0.5;
+  }
 }
 </style>

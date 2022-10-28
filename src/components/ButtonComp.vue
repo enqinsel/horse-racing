@@ -1,21 +1,19 @@
 <script setup>
-
-const props = defineProps(["name", "buttonStyle"])
-const emits = defineEmits(["start", "restart"])
+const props = defineProps(["name", "buttonStyle"]);
+const emits = defineEmits(["start", "restart"]);
 
 const clickHandler = () => {
-    emits("restart")
-    emits("start")
-}
+  emits("restart");
+  emits("start");
+};
 </script>
 
 <template>
-    <button :class="props.buttonStyle" @click="clickHandler">{{props.name}}</button>
+  <button :class="props.buttonStyle" @click="clickHandler">{{ props.name }}</button>
 </template>
 
-
 <style scoped>
-.restartButton {
+F .restartButton {
   padding: 10px;
   width: 150px;
   margin-left: auto;

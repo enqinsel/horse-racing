@@ -51,7 +51,7 @@ const showRoad = ref(false);
 const showStart = ref(true);
 const showSecond = ref(true);
 const showCoundDown = ref(false);
-const showSound = ref(false)
+const showSound = ref(false);
 
 const myResults = ref([]);
 const resultCount = ref(0);
@@ -61,7 +61,6 @@ const firstSecond = ref(0);
 let myInterval;
 let count;
 let oneCount;
-
 
 // oyun ici sayim
 function countDown() {
@@ -81,7 +80,7 @@ function startHandler() {
     clearInterval(oneCount);
     showCoundDown.value = false;
     showSecond.value = true;
-    showSound.value = true
+    showSound.value = true;
     myInterval = setInterval(myHorses, 1000);
     count = setInterval(countDown, 1000);
     showRoad.value = true;
@@ -161,7 +160,6 @@ const myHorses = function () {
 };
 
 // atlarin tum aksiyonlarini gerceklestiren fonksiyonumuz
-
 function runHorse(fast, finish, marginLeft, road) {
   if (fast.value < finish.value.offsetLeft - 50) {
     fast.value += Math.floor(Math.random() * 100 + 20);
