@@ -13,7 +13,7 @@ const clickHandler = () => {
 </template>
 
 <style scoped>
-F .restartButton {
+.restartButton {
   padding: 10px;
   width: 150px;
   margin-left: auto;
