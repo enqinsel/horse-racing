@@ -119,6 +119,7 @@ footer, header, hgroup, menu, nav, section {
 body {
 	line-height: 1;
   background: #ffa500;
+  overflow: hidden;
 }
 ol, ul {
 	list-style: none;

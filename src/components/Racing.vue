@@ -68,7 +68,6 @@ function restartHandler() {
   location.reload(true);
 }
 
-
 const arrayRoads = ref([
   horseOneroad,horseTworoad,horseThreeroad,horseFourroad,horseFiveroad,horseSixroad,horseSevenroad,horseEightroad
 ])

@@ -1,12 +1,19 @@
 <script setup>
-import Horse from './components/Horse.vue';
+import Racing from "./components/Racing.vue";
+import Intro from "./components/Intro.vue";
+import { ref } from "vue";
 
+const showRacing = ref(false);
+const showIntro = ref(true);
+
+const clickHandler = () => {
+  showRacing.value = true;
+  showIntro.value = false;
+};
 </script>
 
 <template>
-  <Horse></Horse>
+  <Intro v-if="showIntro" @clickButton="clickHandler"></Intro>
+  <Racing v-if="showRacing"></Racing>
 </template>
 
-<style scoped>
-
-</style>
