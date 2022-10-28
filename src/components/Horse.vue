@@ -1,59 +1,38 @@
 <script setup>
 import { ref, computed } from "vue";
 
-const marginLeft = ref(0);
-const finish = ref(null);
+const marginLeftAyabakan = ref(0);
+const finishAyabakan = ref(null);
 
-const marginLeft2 = ref(0);
-const finish2 = ref(null);
+const marginLeftYavuzhan = ref(0);
+const finishYavuzhan = ref(null);
 
-const marginLeft3 = ref(0);
-const finish3 = ref(null);
+const marginLeftKarayel = ref(0);
+const finishKarayel = ref(null);
 
-const marginLeft4 = ref(0);
-const finish4 = ref(null);
+const marginLeftSariyerli = ref(0);
+const finishSariyerli = ref(null);
 
-const marginLeft5 = ref(0);
-const finish5 = ref(null);
+const marginLeftSahbatur = ref(0);
+const finishSahbatur = ref(null);
 
-const marginLeft6 = ref(0);
-const finish6 = ref(null);
+const marginLeftTunca = ref(0);
+const finishTunca = ref(null);
 
-const marginLeft7 = ref(0);
-const finish7 = ref(null);
+const marginLeftToraman = ref(0);
+const finishToraman = ref(null);
 
-const marginLeft8 = ref(0);
-const finish8 = ref(null);
+const marginLeftBoldpilot = ref(0);
+const finishBoldpilot = ref(null);
 
-const rdn1 = ref(null);
-const rdn2 = ref(null);
-const rdn3 = ref(null);
-const rdn4 = ref(null);
-const rdn5 = ref(null);
-const rdn6 = ref(null);
-const rdn7 = ref(null);
-const rdn8 = ref(null);
-
-const show = ref(false);
-
-let myInterval;
-let count;
-
-const showRoad = ref(false);
-const showStart = ref(true);
-
-function startHandler() {
-  showSecond.value = true;
-  myInterval = setInterval(horseFunk, 1000);
-  count = setInterval(countDown, 1000);
-  showRoad.value = true;
-  showStart.value = false;
-  
-}
-
-function restartHandler() {
-  location.reload(true);
-}
+const fastAyabakan = ref(null);
+const fastYavuzhan = ref(null);
+const fastKarayel = ref(null);
+const fastSariyerli = ref(null);
+const fastSahbatur = ref(null);
+const fastTunca = ref(null);
+const fastToraman = ref(null);
+const fastBoldpilot = ref(null);
 
 const horseOneroad = ref(0);
 const horseTworoad = ref(0);
@@ -64,7 +43,33 @@ const horseSixroad = ref(0);
 const horseSevenroad = ref(0);
 const horseEightroad = ref(0);
 
-const array2 = ref([
+const showResult = ref(false);
+const showRoad = ref(false);
+const showStart = ref(true);
+const showSecond = ref(false);
+
+const myResults = ref([]);
+const resultCount = ref(0);
+const second = ref(0);
+
+let myInterval;
+let count;
+
+
+function startHandler() {
+  showSecond.value = true;
+  myInterval = setInterval(myHorses, 1000);
+  count = setInterval(countDown, 1000);
+  showRoad.value = true;
+  showStart.value = false;
+}
+
+function restartHandler() {
+  location.reload(true);
+}
+
+
+const arrayRoads = ref([
   horseOneroad,horseTworoad,horseThreeroad,horseFourroad,horseFiveroad,horseSixroad,horseSevenroad,horseEightroad
 ])
 
@@ -108,44 +113,39 @@ const test = computed(()=>{
   return sorting
 }) 
 
-const horseFunk = function () {
-  myFunk(rdn1, finish, marginLeft,  array2.value[0]);
-  myFunk(rdn2, finish2, marginLeft2,  array2.value[1]);
-  myFunk(rdn3, finish3, marginLeft3,  array2.value[2]);
-  myFunk(rdn4, finish4, marginLeft4,  array2.value[3]);
-  myFunk(rdn5, finish5, marginLeft5,  array2.value[4]);
-  myFunk(rdn6, finish6, marginLeft6,  array2.value[5]);
-  myFunk(rdn7, finish7, marginLeft7,  array2.value[6]);
-  myFunk(rdn8, finish8, marginLeft8,  array2.value[7]);
+const myHorses = function () {
+  runHorse(fastAyabakan, finishAyabakan, marginLeftAyabakan,  arrayRoads.value[0]);
+  runHorse(fastYavuzhan, finishYavuzhan, marginLeftYavuzhan,  arrayRoads.value[1]);
+  runHorse(fastKarayel, finishKarayel, marginLeftKarayel,  arrayRoads.value[2]);
+  runHorse(fastSariyerli, finishSariyerli, marginLeftSariyerli,  arrayRoads.value[3]);
+  runHorse(fastSahbatur, finishSahbatur, marginLeftSahbatur,  arrayRoads.value[4]);
+  runHorse(fastTunca, finishTunca, marginLeftTunca,  arrayRoads.value[5]);
+  runHorse(fastToraman, finishToraman, marginLeftToraman,  arrayRoads.value[6]);
+  runHorse(fastBoldpilot, finishBoldpilot, marginLeftBoldpilot,  arrayRoads.value[7]);
 };
 
-const myResults = ref([]);
-const resultCount = ref(0);
 
-function myFunk(rdn, fin, margin, road) {
-  if (rdn.value < fin.value.offsetLeft - 50) {
-    rdn.value += Math.floor(Math.random() * 100 + 20);
-    if (rdn.value >= fin.value.offsetLeft - 50) {
-      rdn.value = fin.value.offsetLeft - 50;
+function runHorse(fast, finish, marginLeft, road) {
+  if (fast.value < finish.value.offsetLeft - 50) {
+    fast.value += Math.floor(Math.random() * 100 + 20);
+    if (fast.value >= finish.value.offsetLeft - 50) {
+      fast.value = finish.value.offsetLeft - 50;
       myResults.value = array.value
       resultCount.value++;
       if (resultCount.value === 8) {
         setTimeout(function isShow() {
-          show.value = true;
+          showResult.value = true;
           showSecond.value = false;
           showRoad.value = true;
         }, 2000);
       }
-      margin.value = fin.value.offsetLeft - 50;
+      marginLeft.value = finish.value.offsetLeft - 50;
     } else {
-      margin.value = rdn.value;
+      marginLeft.value = fast.value;
     }
-    road.value = fin.value.offsetLeft - 50 - margin.value;
+    road.value = finish.value.offsetLeft - 50 - marginLeft.value;
   }
 }
-
-const second = ref(0);
-const showSecond = ref(false);
 
 function countDown() {
   setTimeout(() => second.value++, 1000);
@@ -155,84 +155,52 @@ function countDown() {
 <template>
   <div class="body">
     <div class="container">
-      <div ref="finish" class="final"></div>
+      <div ref="finishAyabakan" class="final"></div>
       <img class="finishFlag" src="../../public/finish.svg" />
       <p class="lane">1 <span>Ayabakan</span></p>
-      <img
-        src="../../public/horse.gif"
-        :style="`margin-left:${marginLeft}px`"
-        style="filter: saturate(2)"
-      />
+      <img src="../../public/horse.gif" :style="`margin-left:${marginLeftAyabakan}px`" style="filter: saturate(2)" />
       <hr />
     </div>
     <div class="container">
-      <div ref="finish2" class="final"></div>
+      <div ref="finishYavuzhan" class="final"></div>
       <p class="lane">2 <span>Yavuzhan</span></p>
-      <img
-        src="../../public/horse.gif"
-        :style="`margin-left:${marginLeft2}px`"
-        style="filter: sepia(5)"
-      />
+      <img src="../../public/horse.gif" :style="`margin-left:${marginLeftYavuzhan}px`" style="filter: sepia(5)" />
       <hr />
     </div>
     <div class="container">
-      <div ref="finish3" class="final"></div>
+      <div ref="finishKarayel" class="final"></div>
       <p class="lane">3 <span>Karayel</span></p>
-      <img
-        src="../../public/horse.gif"
-        :style="`margin-left:${marginLeft3}px`"
-        style="filter: hue-rotate(30deg)"
-      />
+      <img src="../../public/horse.gif" :style="`margin-left:${marginLeftKarayel}px`" style="filter: hue-rotate(30deg)" />
       <hr />
     </div>
     <div class="container">
-      <div ref="finish4" class="final"></div>
+      <div ref="finishSariyerli" class="final"></div>
       <p class="lane">4 <span>Sarıyerli</span></p>
-      <img
-        src="../../public/horse.gif"
-        :style="`margin-left:${marginLeft4}px`"
-        style="filter: brightness(0.7)"
-      />
+      <img src="../../public/horse.gif" :style="`margin-left:${marginLeftSariyerli}px`" style="filter: brightness(0.7)" />
       <hr />
     </div>
     <div class="container">
-      <div ref="finish5" class="final"></div>
+      <div ref="finishSahbatur" class="final"></div>
       <p class="lane">5 <span>Şahbatur</span></p>
-      <img
-        src="../../public/horse.gif"
-        :style="`margin-left:${marginLeft5}px`"
-        style="filter: contrast(100%)"
-      />
+      <img src="../../public/horse.gif" :style="`margin-left:${marginLeftSahbatur}px`" style="filter: contrast(100%)" />
       <hr />
     </div>
     <div class="container">
-      <div ref="finish6" class="final"></div>
+      <div ref="finishTunca" class="final"></div>
       <p class="lane">6 <span>Tunca</span></p>
-      <img
-        src="../../public/horse.gif"
-        :style="`margin-left:${marginLeft6}px`"
-        style="filter: contrast(200%)"
-      />
+      <img src="../../public/horse.gif" :style="`margin-left:${marginLeftTunca}px`" style="filter: contrast(200%)" />
       <hr />
     </div>
     <div class="container">
-      <div ref="finish7" class="final"></div>
+      <div ref="finishToraman" class="final"></div>
       <p class="lane">7 <span>Toraman</span></p>
-      <img
-        src="../../public/horse.gif"
-        :style="`margin-left:${marginLeft7}px`"
-        style="filter: brightness(0.5)"
-      />
+      <img src="../../public/horse.gif" :style="`margin-left:${marginLeftToraman}px`" style="filter: brightness(0.5)" />
       <hr />
     </div>
     <div class="bottom-container">
-      <div ref="finish8" class="final"></div>
+      <div ref="finishBoldpilot" class="final"></div>
       <p class="lane">8 <span>Bold Pilot</span></p>
-      <img
-        src="../../public/horse.gif"
-        :style="`margin-left:${marginLeft8}px`"
-        style="filter: brightness(1.5)"
-      />
+      <img src="../../public/horse.gif" :style="`margin-left:${marginLeftBoldpilot}px`" style="filter: brightness(1.5)" />
     </div>
     <hr class="barrier" />
     <div v-if="showRoad" class="road">
@@ -245,7 +213,7 @@ function countDown() {
           </div>
       <div><span v-for="item in test" style="margin-left:45px;">{{item.name}}</span></div>
     </div>
-    <div v-if="show" class="result">
+    <div v-if="showResult" class="result">
       <div class="mask"></div>
       <div class="card">
         <div class="card__label">
@@ -268,7 +236,7 @@ function countDown() {
       <p>{{ second }}</p>
     </div>
   </div>
-  <button v-if="showStart" class="startButton" @click="startHandler">Start</button>
+  <button v-if="showStart" class="startButton" @click="startHandler">Başlat</button>
 </template>
 
 <style scoped>
