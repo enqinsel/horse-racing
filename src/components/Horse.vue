@@ -71,41 +71,40 @@ const array2 = ref([
 const array = ref([
   { 
     name: "Ayabakan",
-    roads: horseOneroad
+    roads: horseOneroad,
   },
   {
     name: "Yavuzhan",
-    roads: horseTworoad
+    roads: horseTworoad,
   },
   {
     name: "Karayel",
-    roads: horseThreeroad
+    roads: horseThreeroad,
   },
   {
     name: "Sarıyerli",
-    roads: horseFourroad
+    roads: horseFourroad,
   },
   {
     name: "Şahbatur",
-    roads: horseFiveroad
+    roads: horseFiveroad,
   },
   {
     name: "Tunca",
-    roads: horseSixroad
+    roads: horseSixroad,
   },
   {
     name: "Toraman",
-    roads: horseSevenroad
+    roads: horseSevenroad,
   },
   {
     name: "Bold Pilot",
-    roads: horseEightroad
+    roads: horseEightroad,
   },
 ]);
 
 const test = computed(()=>{
   let sorting = array.value.sort((a,b) =>  a.roads - b.roads);
-  console.log(array.value[0].roads);
   return sorting
 }) 
 
@@ -237,7 +236,14 @@ function countDown() {
     </div>
     <hr class="barrier" />
     <div v-if="showRoad" class="road">
-      <span v-for="item in test">{{item.name}}</span>
+          <div>
+            <ul class="momentTable">
+              <li class="rankColor" v-for="i in 3">{{ i }}</li>
+              <li v-for="i in 5">{{ i + 3 }}</li>
+            </ul>
+            <hr class="line_moment ">
+          </div>
+      <div><span v-for="item in test" style="margin-left:45px;">{{item.name}}</span></div>
     </div>
     <div v-if="show" class="result">
       <div class="mask"></div>
@@ -248,11 +254,11 @@ function countDown() {
         </div>
         <div class="card__wrapper">
           <ul>
-            <li class="rankColor" v-for="i in 3">{{ i }}</li>
-            <li v-for="i in 5">{{ i + 3 }}</li>
+            <li class="rankColor resultTable" v-for="i in 3">{{ i }}</li>
+            <li  class="resultTable" v-for="i in 5">{{ i + 3 }}</li>
           </ul>
           <ul>
-            <li v-for="myResult in myResults">{{ myResult.name }}</li>
+            <li class="resultTable" v-for="myResult in myResults">{{ myResult.name }}</li>
           </ul>
         </div>
         <button class="restartButton" @click="restartHandler">Yeniden Başlat</button>
@@ -266,6 +272,18 @@ function countDown() {
 </template>
 
 <style scoped>
+.line_moment{
+  background-color: black;
+  height:1.5px;
+  border:0px;
+}
+.momentTable{
+  display: flex;
+  align-items: flex-start;
+  gap: 100px;
+  margin-left: 70px;
+}
+
 span {
   font-size: 18px;
   opacity: 0.8;
@@ -297,7 +315,7 @@ span {
   justify-content: space-around;
   position: fixed;
   border-radius: 10px;
-  right: 50px;
+  right: 100px;
   bottom: 35px;
 }
 .startButton {
@@ -318,16 +336,12 @@ span {
   transition: all 0.3s ease;
 }
 .road {
-  display: flex;
-  justify-content: center;
-  gap: 16px;
   background: rgb(237, 252, 196);
   background: linear-gradient(0deg, #c56b05 0%, #e08a26 100%);
   border: 1px solid red;
-  text-align: center;
   padding: 10px;
   width: auto;
-  margin-left: 50%;
+  margin-left: 40%;
   margin-top: 50px;
   transform: translate(-50%, -50%);
 }
@@ -409,7 +423,7 @@ img {
   grid-template-columns: repeat(2, 2fr);
 }
 
-li {
+.resultTable {
   padding: 10px;
   border-bottom: 1px solid rgb(0, 0, 0);
 }
