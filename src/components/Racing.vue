@@ -1,5 +1,7 @@
 <script setup>
 import { ref, computed } from "vue";
+import ButtonComp from "./ButtonComp.vue";
+import Second from "./Second.vue";
 
 const marginLeftAyabakan = ref(0);
 const finishAyabakan = ref(null);
@@ -132,10 +134,10 @@ function runHorse(fast, finish, marginLeft, road) {
       myResults.value = array.value
       resultCount.value++;
       if (resultCount.value === 8) {
+        clearInterval(count)
         setTimeout(function isShow() {
           showResult.value = true;
-          showSecond.value = false;
-          showRoad.value = true;
+          showRoad.value = false;
         }, 2000);
       }
       marginLeft.value = finish.value.offsetLeft - 50;
@@ -228,14 +230,12 @@ function countDown() {
             <li class="resultTable" v-for="myResult in myResults">{{ myResult.name }}</li>
           </ul>
         </div>
-        <button class="restartButton" @click="restartHandler">Yeniden Başlat</button>
+        <ButtonComp @restart="restartHandler" name="Yeniden Başlat" buttonStyle="restartButton"></ButtonComp>
       </div>
     </div>
-    <div class="second" v-if="showSecond">
-      <p>{{ second }}</p>
-    </div>
+    <Second secondStyle="second" :second="second" v-if="showSecond"></Second>
   </div>
-  <button v-if="showStart" class="startButton" @click="startHandler">Başlat</button>
+  <ButtonComp name="Başlat" buttonStyle="startButton" @start="startHandler" v-if="showStart"></ButtonComp>
 </template>
 
 <style scoped>
@@ -270,7 +270,7 @@ span {
   left: 50px;
   color: #fbe200a3;
 }
-.second {
+/* .second {
   background-color: rgb(0, 0, 0);
   width: 150px;
   height: 75px;
@@ -284,24 +284,8 @@ span {
   border-radius: 10px;
   right: 100px;
   bottom: 35px;
-}
-.startButton {
-  width: 250px;
-  height: 80px;
-  font-size: 36px;
-  margin-left: 40%;
-  margin-top: 15px;
-  cursor: pointer;
-  border: none;
-  border-radius: 10px;
-  background-color: rgb(86, 223, 13);
-  color: white;
-}
+} */
 
-.startButton:hover {
-  transform: scale(1.2);
-  transition: all 0.3s ease;
-}
 .road {
   background: rgb(237, 252, 196);
   background: linear-gradient(0deg, #c56b05 0%, #e08a26 100%);
@@ -314,17 +298,6 @@ span {
 }
 
 
-.restartButton {
-  padding: 10px;
-  width: 150px;
-  margin-left: auto;
-  margin-right: auto;
-  border: none;
-  border-radius: 10px;
-  background-color: rgb(86, 223, 13);
-  color: white;
-  cursor: pointer;
-}
 .rankColor {
   color: rgb(246, 255, 0);
 }
